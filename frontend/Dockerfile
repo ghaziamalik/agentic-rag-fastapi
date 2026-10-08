@@ -7,17 +7,11 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files first (for caching)
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
 
-# Copy source
 COPY . .
 
-# Build production bundle
-# Uses VITE_API_URL env var if provided
 ARG VITE_API_URL
 ENV VITE_API_URL=$VITE_API_URL
 RUN npm run build
@@ -28,9 +22,9 @@ FROM nginx:alpine
 # Copy built files
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Nginx config for SPA routing
+# Use a template that replaces ${PORT} at runtime
 RUN echo 'server { \
-    listen 80; \
+    listen ${PORT}; \
     root /usr/share/nginx/html; \
     index index.html; \
     location / { \
@@ -40,7 +34,10 @@ RUN echo 'server { \
         expires 1y; \
         add_header Cache-Control "public, immutable"; \
     } \
-}' > /etc/nginx/conf.d/default.conf
+}' > /etc/nginx/templates/default.conf.template
+
+# Default PORT if not set
+ENV PORT=80
 
 EXPOSE 80
 
