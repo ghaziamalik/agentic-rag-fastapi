@@ -12,7 +12,7 @@ chromadb
 sentence-transformers
 requests
 pydantic[email]
-passlib[bcrypt]
+passlib
 bcrypt==4.3.0
 PyJWT
 python-multipart
