@@ -1,5 +1,5 @@
 fastapi
-uvicorn
+uvicorn[standard]
 python-dotenv
 pypdf
 langchain-core
@@ -10,10 +10,10 @@ langchain-chroma
 langchain-groq
 chromadb
 sentence-transformers
-streamlit
 requests
-pydantic
+pydantic[email]
 passlib[bcrypt]
-python-jose[cryptography]
+bcrypt==4.3.0
+PyJWT
 python-multipart
 email-validator
