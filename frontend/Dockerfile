@@ -1,8 +1,8 @@
 # ═════════════════════════════════════════════════════════
-# Frontend Dockerfile — Multi-stage build
+# Frontend — Node build + Nginx serve
 # ═════════════════════════════════════════════════════════
 
-# ─── Stage 1: Build ───
+# ─── Stage 1: Build React app ───
 FROM node:20-alpine AS builder
 
 WORKDIR /app
@@ -16,29 +16,36 @@ ARG VITE_API_URL
 ENV VITE_API_URL=$VITE_API_URL
 RUN npm run build
 
-# ─── Stage 2: Serve with nginx ───
+# ─── Stage 2: Serve with Nginx ───
 FROM nginx:alpine
 
-# Copy built files
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Use a template that replaces ${PORT} at runtime
-RUN echo 'server { \
-    listen ${PORT}; \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    location / { \
-        try_files $uri $uri/ /index.html; \
-    } \
-    location /assets/ { \
-        expires 1y; \
-        add_header Cache-Control "public, immutable"; \
-    } \
-}' > /etc/nginx/templates/default.conf.template
+# Remove default nginx config (uses port 80)
+RUN rm -f /etc/nginx/conf.d/default.conf
 
-# Default PORT if not set
-ENV PORT=80
+# Write a startup script that generates nginx config with $PORT
+RUN printf '#!/bin/sh\n\
+PORT=${PORT:-8080}\n\
+echo "Starting nginx on port $PORT"\n\
+cat > /etc/nginx/conf.d/default.conf << EOF\n\
+server {\n\
+    listen $PORT;\n\
+    listen [::]:$PORT;\n\
+    root /usr/share/nginx/html;\n\
+    index index.html;\n\
+    location / {\n\
+        try_files \\$uri \\$uri/ /index.html;\n\
+    }\n\
+    location /assets/ {\n\
+        expires 1y;\n\
+        add_header Cache-Control "public, immutable";\n\
+    }\n\
+}\n\
+EOF\n\
+exec nginx -g "daemon off;"\n\
+' > /start.sh && chmod +x /start.sh
 
-EXPOSE 80
+EXPOSE 8080
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/start.sh"]
