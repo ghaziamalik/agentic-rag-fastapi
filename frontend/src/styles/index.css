@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════ */
+/* BASE / RESETS                                          */
+/* ═══════════════════════════════════════════════════════ */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'ss01';
+  letter-spacing: -0.011em;
+  background: #0a0e1a;
+  color: #f1f5f9;
+  overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+html.light body {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/* TYPOGRAPHY SYSTEM — Geist / Inter / JetBrains Mono    */
+/* ═══════════════════════════════════════════════════════ */
+h1, h2, h3, h4, h5, h6,
+.font-display {
+  font-family: 'Geist', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.025em;
+  font-feature-settings: 'ss01', 'ss03';
+}
+
+h1 {
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+
+h2 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+h3 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+/* Uppercase labels — wider tracking for premium look */
+.uppercase {
+  letter-spacing: 0.08em !important;
+  font-weight: 700 !important;
+}
+
+/* Code blocks */
+code, pre, .font-mono, kbd {
+  font-family: 'JetBrains Mono', 'Menlo', monospace;
+  font-feature-settings: 'liga' 0, 'calt' 0;
+  letter-spacing: -0.01em;
+}
+
+/* Numbers — tabular figures for aligned columns */
+.font-mono, table td, table th {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+/* Buttons */
+button {
+  letter-spacing: -0.005em;
+  font-weight: 600;
+}
+
+/* Better small text */
+.text-xs, .text-\[10px\], .text-\[11px\], .text-\[12px\] {
+  letter-spacing: 0.005em;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/* SCROLLBAR                                              */
+/* ═══════════════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover { background: #475569; }
+html.light ::-webkit-scrollbar-thumb { background: #cbd5e1; }
+html.light ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* ═══════════════════════════════════════════════════════ */
+/* TEXT GRADIENTS                                         */
+/* ═══════════════════════════════════════════════════════ */
+.text-gradient {
+  background: linear-gradient(180deg, #f1f5f9 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+html.light .text-gradient {
+  background: linear-gradient(180deg, #0f172a 0%, #475569 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/* SURFACES                                               */
+/* ═══════════════════════════════════════════════════════ */
+.surface {
+  background: #111827;
+  border: 1px solid #1e293b;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+html.light .surface {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+
+.glass {
+  background: rgba(17, 24, 39, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid #1e293b;
+}
+
+html.light .glass {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #e2e8f0;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/* LIGHT MODE — TAILWIND UTILITY OVERRIDES                */
+/* ═══════════════════════════════════════════════════════ */
+
+/* Backgrounds */
+html.light .bg-ink-950 { background-color: #f8fafc !important; }
+html.light .bg-ink-900 { background-color: #ffffff !important; }
+html.light .bg-ink-800 { background-color: #f1f5f9 !important; }
+html.light .bg-ink-700 { background-color: #e2e8f0 !important; }
+
+/* Hover backgrounds */
+html.light .hover\:bg-ink-800:hover { background-color: #f1f5f9 !important; }
+html.light .hover\:bg-ink-800\/60:hover { background-color: rgba(241, 245, 249, 0.6) !important; }
+html.light .hover\:bg-white\/5:hover { background-color: rgba(15, 23, 42, 0.05) !important; }
+html.light .hover\:bg-white\/10:hover { background-color: rgba(15, 23, 42, 0.08) !important; }
+
+/* Borders */
+html.light .border-ink-800 { border-color: #e2e8f0 !important; }
+html.light .border-ink-700 { border-color: #cbd5e1 !important; }
+html.light .border-white\/5 { border-color: rgba(15, 23, 42, 0.05) !important; }
+html.light .border-white\/10 { border-color: rgba(15, 23, 42, 0.1) !important; }
+
+/* Text colors */
+html.light .text-white { color: #0f172a !important; }
+html.light .text-fog-100 { color: #1e293b !important; }
+html.light .text-fog-300 { color: #334155 !important; }
+html.light .text-fog-400 { color: #475569 !important; }
+html.light .text-fog-500 { color: #64748b !important; }
+html.light .text-fog-600 { color: #94a3b8 !important; }
+
+/* Hover text */
+html.light .hover\:text-white:hover { color: #0f172a !important; }
+html.light .hover\:text-fog-300:hover { color: #334155 !important; }
+
+/* Backgrounds from white variants */
+html.light .bg-white\/5 { background-color: rgba(15, 23, 42, 0.05) !important; }
+html.light .bg-white\/10 { background-color: rgba(15, 23, 42, 0.08) !important; }
+
+/* Glass surfaces in header */
+html.light .bg-ink-950\/80 { background-color: rgba(248, 250, 252, 0.85) !important; }
+
+/* ═══════════════════════════════════════════════════════ */
+/* BUTTONS                                                */
+/* ═══════════════════════════════════════════════════════ */
+.btn-accent {
+  background: #10b981;
+  color: white;
+  transition: all 0.15s ease;
+}
+
+.btn-accent:hover:not(:disabled) {
+  background: #059669;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+}
+
+.btn-accent:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid rgba(16, 185, 129, 0.5);
+  outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/* DECORATIVE                                             */
+/* ═══════════════════════════════════════════════════════ */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+html.light .grid-bg {
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  will-change: opacity;
+}
+
+html.light .glow-orb {
+  opacity: 0.15 !important;
+}
+
+kbd {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #cbd5e1;
+}
+
+html.light kbd {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+}
+
+::selection {
+  background: rgba(16, 185, 129, 0.3);
+  color: #f1f5f9;
+}
+
+html.light ::selection {
+  background: rgba(16, 185, 129, 0.3);
+  color: #0f172a;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/* ANIMATIONS                                             */
+/* ═══════════════════════════════════════════════════════ */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+html.light .skeleton {
+  background: linear-gradient(90deg, #e2e8f0 0%, #f1f5f9 50%, #e2e8f0 100%);
+  background-size: 1000px 100%;
+}

@@ -1,0 +1,2 @@
+cd ~/Desktop/agentic_rag_fastapi && source venv/bin/activate && uvicorn backend.main:app --reload --port 8000
+cd ~/Desktop/agentic_rag_fastapi/frontend && npm run dev
